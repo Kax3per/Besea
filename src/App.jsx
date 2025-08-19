@@ -1,6 +1,6 @@
 import './App.css'
 import './index.css'
-import Navbar from './assets/components/Navbar'
+import Navbar from '../src/components/Navbar'
 
 function App() {
 

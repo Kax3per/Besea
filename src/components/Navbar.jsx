@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronDown } from "lucide-react";
-import beseaLogo from "../besea1.png";
 
-
+import logo from "../assets/images/besea1.png";
 
 export default function Navbar() {
   const [active, setActive] = useState("Home");
@@ -76,8 +75,10 @@ export default function Navbar() {
             </AnimatePresence>
           </motion.button>
         </div>
+    
+     <img src={logo} alt="logo" className="h-16" />
 
-       <img src={beseaLogo} alt="BeseaLogo" className="h-16" />
+
 
 
       </div>
