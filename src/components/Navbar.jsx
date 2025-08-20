@@ -155,7 +155,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-
 {/* Hamburger menu mobile */}
 <AnimatePresence>
   {hamburgerOpen && (
@@ -175,7 +174,10 @@ export default function Navbar() {
                   className={`flex items-center justify-between cursor-pointer px-3 py-3 md:px-4 md:py-4 text-base md:text-lg transition-colors
                     ${active === link ? "bg-[#00A84F] text-white" : "text-gray-600"}
                     hover:bg-[#00A84F] hover:text-white`}
-                  onClick={() => setPagesMobileOpen(!pagesMobileOpen)}
+                  onClick={() => {
+                    setActive("Pages");
+                    setPagesMobileOpen(!pagesMobileOpen); // toggle submenu
+                  }}
                 >
                   <span>{link}</span>
                   <ChevronDown
@@ -200,6 +202,10 @@ export default function Navbar() {
                         {leftLinks.map((item, i) => (
                           <span
                             key={i}
+                            onClick={() => {
+                              setActive(item);
+                              setHamburgerOpen(false); // zamknij hamburger po kliknięciu w link
+                            }}
                             className="cursor-pointer px-3 py-2 md:px-4 md:py-2 transition-colors text-gray-600 hover:bg-[#00A84F] hover:text-white break-words"
                           >
                             {item}
@@ -214,6 +220,10 @@ export default function Navbar() {
                         {rightLinks.map((item, i) => (
                           <span
                             key={i}
+                            onClick={() => {
+                              setActive(item);
+                              setHamburgerOpen(false); // zamknij hamburger po kliknięciu w link
+                            }}
                             className="cursor-pointer px-3 py-2 md:px-4 md:py-2 transition-colors text-gray-600 hover:bg-[#00A84F] hover:text-white break-words"
                           >
                             {item}
@@ -226,7 +236,10 @@ export default function Navbar() {
               </>
             ) : (
               <span
-                onClick={() => setActive(link)}
+                onClick={() => {
+                  setActive(link);
+                  setHamburgerOpen(false); // zamknij hamburger po kliknięciu
+                }}
                 className={`block cursor-pointer px-3 py-3 md:px-4 md:py-4 text-base md:text-lg transition-colors
                   ${active === link ? "bg-[#00A84F] text-white" : "text-gray-600"}
                   hover:bg-[#00A84F] hover:text-white`}
@@ -240,6 +253,9 @@ export default function Navbar() {
     </motion.aside>
   )}
 </AnimatePresence>
+
+
+
 
 
 
