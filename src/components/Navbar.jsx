@@ -15,6 +15,11 @@ export default function Navbar() {
   const leftLinks = ["Services", "Privacy", "About", "FAQ", "News", "Contact Us"];
   const rightLinks = ["Features", "Besea", "Development", "Prices"];
 
+  // domyślnie aktywne "Home"
+  useEffect(() => {
+    setActive("Home");
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 0);
     window.addEventListener("scroll", handleScroll);
@@ -31,13 +36,12 @@ export default function Navbar() {
 
   useEffect(() => {
     if (hamburgerOpen) {
-      document.body.style.overflow = "hidden"; // blokujemy stronę
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = ""; // odblokowujemy stronę
+      document.body.style.overflow = "";
     }
-
     return () => {
-      document.body.style.overflow = ""; // cleanup przy odmontowaniu
+      document.body.style.overflow = "";
     };
   }, [hamburgerOpen]);
 
@@ -53,6 +57,7 @@ export default function Navbar() {
         scrolled ? "h-20" : "h-28"
       }`}
     >
+      {/* Logo i hamburger */}
       <div className="flex items-center gap-4">
         <div className="md:hidden">
           <motion.button
@@ -91,6 +96,7 @@ export default function Navbar() {
         <img src={logo} alt="logo" className="h-8 md:h-16" />
       </div>
 
+      {/* Nawigacja desktop */}
       <nav className="hidden md:flex ml-24">
         <ul className="flex space-x-12 text-lg font-medium text-gray-600 mr-20">
           {links.map((link) => (
@@ -155,112 +161,105 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-{/* Hamburger menu mobile */}
-<AnimatePresence>
-  {hamburgerOpen && (
-    <motion.aside
-      initial={{ x: "-100%" }}
-      animate={{ x: 0 }}
-      exit={{ x: "-100%" }}
-      transition={{ duration: 0.4, ease: "easeInOut" }}
-      className="fixed top-20 left-0 w-3/4 h-[calc(100vh-5rem)] bg-white shadow-lg z-50 p-4 md:p-6 overflow-y-scroll custom-scroll scrollbar-always"
-    >
-      <ul className="flex flex-col space-y-4 md:space-y-6 text-gray-600 mt-12">
-        {links.map((link) => (
-          <li key={link}>
-            {link === "Pages" ? (
-              <>
-                <div
-                  className={`flex items-center justify-between cursor-pointer px-3 py-3 md:px-4 md:py-4 text-base md:text-lg transition-colors
-                    ${active === link ? "bg-[#00A84F] text-white" : "text-gray-600"}
-                    hover:bg-[#00A84F] hover:text-white`}
-                  onClick={() => {
-                    setActive("Pages");
-                    setPagesMobileOpen(!pagesMobileOpen); // toggle submenu
-                  }}
-                >
-                  <span>{link}</span>
-                  <ChevronDown
-                    className={`w-4 h-4 md:w-5 md:h-5 transform transition-transform ${
-                      pagesMobileOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </div>
-                <AnimatePresence>
-                  {pagesMobileOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="mt-6 md:mt-8 ml-2"
+
+      {/* Hamburger menu mobile */}
+      <AnimatePresence>
+        {hamburgerOpen && (
+          <motion.aside
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="fixed top-20 left-0 w-3/4 h-[calc(100vh-5rem)] bg-white shadow-lg z-50 p-4 md:p-6 overflow-y-scroll custom-scroll scrollbar-always"
+          >
+            <ul className="flex flex-col space-y-4 md:space-y-6 text-gray-600 mt-12">
+              {links.map((link) => (
+                <li key={link}>
+                  {link === "Pages" ? (
+                    <>
+                      <div
+                        className={`flex items-center justify-between cursor-pointer px-3 py-3 md:px-4 md:py-4 text-base md:text-lg transition-colors
+                          ${active === link ? "bg-[#00A84F] text-white" : "text-gray-600"}
+                          hover:bg-[#00A84F] hover:text-white`}
+                        onClick={() => {
+                          setActive("Pages");
+                          setPagesMobileOpen(!pagesMobileOpen);
+                        }}
+                      >
+                        <span>{link}</span>
+                        <ChevronDown
+                          className={`w-4 h-4 md:w-5 md:h-5 transform transition-transform ${
+                            pagesMobileOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </div>
+                      <AnimatePresence>
+                        {pagesMobileOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="mt-6 md:mt-8 ml-2"
+                          >
+                            <h4 className="text-[#00A84F] mt-6 md:mt-8 text-base md:text-xl mb-3 md:mb-4 border-b border-gray-300 pb-1">
+                              Facility Management
+                            </h4>
+                            <div className="flex flex-col space-y-4 md:space-y-5 mb-6 md:mb-8">
+                              {leftLinks.map((item, i) => (
+                                <span
+                                  key={i}
+                                  onClick={() => {
+                                    setActive(item);
+                                    setHamburgerOpen(false);
+                                  }}
+                                  className="cursor-pointer px-3 py-2 md:px-4 md:py-2 transition-colors text-gray-600 hover:bg-[#00A84F] hover:text-white break-words"
+                                >
+                                  {item}
+                                </span>
+                              ))}
+                            </div>
+
+                            <h4 className="text-[#00A84F] mt-6 md:mt-8 text-base md:text-xl mb-3 md:mb-4 border-b border-gray-300 pb-1">
+                              Enterprise Software
+                            </h4>
+                            <div className="flex flex-col space-y-4 md:space-y-5">
+                              {rightLinks.map((item, i) => (
+                                <span
+                                  key={i}
+                                  onClick={() => {
+                                    setActive(item);
+                                    setHamburgerOpen(false);
+                                  }}
+                                  className="cursor-pointer px-3 py-2 md:px-4 md:py-2 transition-colors text-gray-600 hover:bg-[#00A84F] hover:text-white break-words"
+                                >
+                                  {item}
+                                </span>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </>
+                  ) : (
+                    <span
+                      onClick={() => {
+                        setActive(link);
+                        setHamburgerOpen(false);
+                      }}
+                      className={`block cursor-pointer px-3 py-3 md:px-4 md:py-4 text-base md:text-lg transition-colors
+                        ${active === link ? "bg-[#00A84F] text-white" : "text-gray-600"}
+                        hover:bg-[#00A84F] hover:text-white`}
                     >
-                      <h4 className="text-[#00A84F] mt-6 md:mt-8 text-base md:text-xl mb-3 md:mb-4 border-b border-gray-300 pb-1">
-                        Facility Management
-                      </h4>
-                      <div className="flex flex-col space-y-4 md:space-y-5 mb-6 md:mb-8">
-                        {leftLinks.map((item, i) => (
-                          <span
-                            key={i}
-                            onClick={() => {
-                              setActive(item);
-                              setHamburgerOpen(false); // zamknij hamburger po kliknięciu w link
-                            }}
-                            className="cursor-pointer px-3 py-2 md:px-4 md:py-2 transition-colors text-gray-600 hover:bg-[#00A84F] hover:text-white break-words"
-                          >
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-
-                      <h4 className="text-[#00A84F] mt-6 md:mt-8 text-base md:text-xl mb-3 md:mb-4 border-b border-gray-300 pb-1">
-                        Enterprise Software
-                      </h4>
-                      <div className="flex flex-col space-y-4 md:space-y-5">
-                        {rightLinks.map((item, i) => (
-                          <span
-                            key={i}
-                            onClick={() => {
-                              setActive(item);
-                              setHamburgerOpen(false); // zamknij hamburger po kliknięciu w link
-                            }}
-                            className="cursor-pointer px-3 py-2 md:px-4 md:py-2 transition-colors text-gray-600 hover:bg-[#00A84F] hover:text-white break-words"
-                          >
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    </motion.div>
+                      {link}
+                    </span>
                   )}
-                </AnimatePresence>
-              </>
-            ) : (
-              <span
-                onClick={() => {
-                  setActive(link);
-                  setHamburgerOpen(false); // zamknij hamburger po kliknięciu
-                }}
-                className={`block cursor-pointer px-3 py-3 md:px-4 md:py-4 text-base md:text-lg transition-colors
-                  ${active === link ? "bg-[#00A84F] text-white" : "text-gray-600"}
-                  hover:bg-[#00A84F] hover:text-white`}
-              >
-                {link}
-              </span>
-            )}
-          </li>
-        ))}
-      </ul>
-    </motion.aside>
-  )}
-</AnimatePresence>
-
-
-
-
-
-
-
-
+                </li>
+              ))}
+            </ul>
+          </motion.aside>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

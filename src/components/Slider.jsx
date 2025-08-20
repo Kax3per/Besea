@@ -135,7 +135,7 @@ const FullscreenSlider = () => {
                   </h2>
 
                   {/* Opis */}
-                  <p className="text-sm sm:text-base md:text-xl lg:text-2xl mb-6 text-white opacity-0 translate-y-6 animate-fadeInText delay-100">
+                  <p className=" sm:text-base md:text-xl lg:text-2xl mb-6 text-white opacity-0 translate-y-6 animate-fadeInText delay-100">
                     {wrapTextByWords(slide.description).map((line, idx) => (
                       <span key={idx} className="block">
                         {line}
