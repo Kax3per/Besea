@@ -68,7 +68,7 @@ const FullscreenSlider = () => {
     afterChange: (current) => setActiveSlide(current),
   };
 
-  const wrapTextByWords = (text, wordsPerLine = 9) => {
+  const wrapTextByWords = (text, wordsPerLine = isMobile ? 5 : 7) => {
     const words = text.split(" ");
     const lines = [];
     for (let i = 0; i < words.length; i += wordsPerLine) {
@@ -123,23 +123,28 @@ const FullscreenSlider = () => {
 
             {/* Teksty i przycisk */}
             <div
-              className={`absolute inset-0 flex flex-col items-center text-center text-white px-6 ${
+              className={`absolute inset-0 flex flex-col  items-center text-center text-white px-6 ${
                 isMobile ? "justify-center pb-0" : "justify-end pb-32"
               }`}
             >
               {activeSlide === index && (
                 <>
-                  <h2 className="text-4xl md:text-6xl font-bold mb-4 opacity-0 translate-y-6 animate-fadeInText">
+                  {/* Tytuł */}
+                  <h2 className="text-4xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-4 opacity-0 translate-y-6 animate-fadeInText">
                     {slide.title}
                   </h2>
-                  <p className="text-lg md:text-2xl mb-6 text-white opacity-0 translate-y-6 animate-fadeInText delay-100">
-                    {wrapTextByWords(slide.description, 7).map((line, idx) => (
+
+                  {/* Opis */}
+                  <p className="text-sm sm:text-base md:text-xl lg:text-2xl mb-6 text-white opacity-0 translate-y-6 animate-fadeInText delay-100">
+                    {wrapTextByWords(slide.description).map((line, idx) => (
                       <span key={idx} className="block">
                         {line}
                       </span>
                     ))}
                   </p>
-                  <button className="relative overflow-hidden bg-[#00A84F] px-9 py-4 text-white text-lg font-semibold opacity-0 translate-y-6 animate-fadeInText delay-200 group">
+
+                  {/* Przycisk */}
+                  <button className="relative overflow-hidden bg-[#00A84F] px-5 sm:px-7 md:px-9 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg font-semibold opacity-0 translate-y-6 animate-fadeInText delay-200 group">
                     <span className="relative z-10">{slide.button}</span>
                     <span className="absolute inset-0 bg-gray-600 scale-0 origin-center transition-transform duration-300 ease-out group-hover:scale-100"></span>
                   </button>

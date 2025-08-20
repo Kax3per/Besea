@@ -1,27 +1,43 @@
 @import "tailwindcss";
-/* Inter font lokalnie */
+
 @font-face {
   font-family: 'Inter';
-  src: url('/fonts/Inter-Regular.woff2') format('woff2');
+  src: url('/fonts/Inter-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url('/fonts/Inter-Medium.woff2') format('woff2');
+  src: url('/fonts/Inter-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url('/fonts/Inter-SemiBold.woff2') format('woff2');
+  src: url('/fonts/Inter-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
 }
 
-/* Ustawienie fontu jako domyślny */
 body {
   font-family: 'Inter', sans-serif;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #00A84F;
+  border-radius: 4px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.scrollbar-always {
+  scrollbar-gutter: stable both-edges;
 }
