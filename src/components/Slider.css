@@ -1,0 +1,82 @@
+/* Animacja tekstu */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.8s forwards;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+/* Pasek progresu dla kreski */
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes fadeInText {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInText {
+  animation: fadeInText 1s forwards;
+  animation-delay: 1s; /* 1 sekunda po pojawieniu się slajdu */
+}
+
+
+.animate-progress {
+  animation: progressFill 5s linear forwards;
+}
+
+/* Kreski zamiast kropek (opcjonalnie używane, jeśli wrócisz do dots) */
+.dots-container {
+  position: absolute;
+  bottom: 30px;
+  display: flex !important;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.dots-container li {
+  margin: 0 5px;
+}
+
+.dot-line {
+  width: 30px;
+  height: 4px;
+  background: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.slick-active .dot-line {
+  background: #00A84F;
+}

@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+:root {
+  --navbar-height: 7rem; /* np. 28px dla mniejszych ekranów, 7rem dla desktop */
+}
