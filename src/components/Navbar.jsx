@@ -75,14 +75,10 @@ export default function Navbar() {
             </AnimatePresence>
           </motion.button>
         </div>
-    
-     <img src={logo} alt="logo" className="h-16" />
-
-
-
+  
+     <img src={logo} alt="logo" className="h-12 md:h-16" />
 
       </div>
-
         <nav className="hidden md:flex ml-24">
         <ul className="flex space-x-12 text-lg font-medium text-gray-600 mr-20">
           {links.map((link) => (
@@ -167,7 +163,7 @@ export default function Navbar() {
       transition={{ duration: 0.4, ease: "easeInOut" }}
       className="fixed top-28 left-0 w-1/2 h-[calc(100vh-7rem)] bg-white shadow-lg z-50 p-6 overflow-y-auto"
     >
-      <ul className="flex flex-col space-y-4 text-lg text-gray-600 font-medium">
+      <ul className="flex flex-col space-y-3 text-base md:text-lg text-gray-600 font-medium">
         {links.map((link) => (
           <li key={link}>
             {link === "Pages" ? (
@@ -192,7 +188,7 @@ export default function Navbar() {
                       transition={{ duration: 0.3 }}
                       className="mt-4 ml-2"
                     >
-                      <h4 className="text-[#00A84F] mt-5 text-2xl mb-2 border-b-1 border-gray-300 pb-1">
+                      <h4 className="text-[#00A84F] mt-5 text-xl md:text-2xl mb-2 border-b border-gray-300 pb-1">
                         Facility Management
                       </h4>
                       <div className="flex flex-col space-y-3 mb-6">
@@ -206,7 +202,7 @@ export default function Navbar() {
                         ))}
                       </div>
 
-                      <h4 className="text-[#00A84F] text-2xl mb-2 border-b-1 border-gray-300 pb-1">
+                     <h4 className="text-[#00A84F] mt-5 text-xl md:text-2xl mb-2 border-b border-gray-300 pb-1">
                         Enterprise Software
                       </h4>
                       <div className="flex flex-col space-y-3">
