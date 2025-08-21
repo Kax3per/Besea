@@ -11,9 +11,9 @@ export default defineConfig({
 });
 
 
-//git init
-//git add .
-//git commit -m ""
-//git push -u origin main
-//npm run build
+// git init
+// git add .
+// git commit -m ""
+// git push -u origin main
+// npm run build
 // npm run deploy

@@ -28,6 +28,30 @@
 }
 
 
+@keyframes border-bottom {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+@keyframes border-right {
+  0% { height: 0; }
+  100% { height: 100%; }
+}
+@keyframes border-top {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+@keyframes border-left {
+  0% { height: 0; }
+  100% { height: 100%; }
+}
+
+.group-hover\:animate-border-bottom { animation: border-bottom 0.25s forwards; }
+.group-hover\:animate-border-right  { animation: border-right 0.25s 0.25s forwards; }
+.group-hover\:animate-border-top    { animation: border-top 0.25s 0.5s forwards; }
+.group-hover\:animate-border-left   { animation: border-left 0.25s 0.75s forwards; }
+
+
+
 body {
   font-family: 'Poppins', sans-serif;
 }
