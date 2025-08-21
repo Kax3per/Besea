@@ -3,3 +3,8 @@
 :root {
   --navbar-height: 7rem; /* np. 28px dla mniejszych ekranów, 7rem dla desktop */
 }
+
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Regular.ttf") format("truetype");
+}
