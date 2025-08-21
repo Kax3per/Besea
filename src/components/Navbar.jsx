@@ -15,7 +15,6 @@ export default function Navbar() {
   const leftLinks = ["Services", "Privacy", "About", "FAQ", "News", "Contact Us"];
   const rightLinks = ["Features", "Besea", "Development", "Prices"];
 
-  // domyślnie aktywne "Home"
   useEffect(() => {
     setActive("Home");
   }, []);
@@ -28,7 +27,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) setHamburgerOpen(false);
+      if (window.innerWidth >= 1024) setHamburgerOpen(false); // zmienione na 1024px
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -59,10 +58,10 @@ export default function Navbar() {
     >
       {/* Logo i hamburger */}
       <div className="flex items-center gap-4">
-        <div className="md:hidden">
+        <div className="lg:hidden"> {/* wcześniej md:hidden */}
           <motion.button
             onClick={() => setHamburgerOpen(!hamburgerOpen)}
-            className="relative w-6 h-6 md:w-8 md:h-8 flex items-center justify-center"
+            className="relative w-6 h-6 lg:w-8 lg:h-8 flex items-center justify-center"
           >
             <AnimatePresence mode="wait" initial={false}>
               {!hamburgerOpen ? (
@@ -93,11 +92,11 @@ export default function Navbar() {
           </motion.button>
         </div>
 
-        <img src={logo} alt="logo" className="h-8 md:h-16" />
+        <img src={logo} alt="logo" className="h-8 lg:h-16" />
       </div>
 
       {/* Nawigacja desktop */}
-      <nav className="hidden md:flex ml-24">
+      <nav className="hidden lg:flex ml-24"> {/* wcześniej md:flex */}
         <ul className="flex space-x-12 text-lg font-medium text-gray-600 mr-20">
           {links.map((link) => (
             <li

@@ -43,15 +43,18 @@ const slides = [
 
 const FullscreenSlider = () => {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const sliderRef = useRef(null);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
+    const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const isMobile = windowWidth < 768;
+  const isTablet = windowWidth >= 768 && windowWidth < 1024;
+  const isSmall = windowWidth < 400;
 
   const settings = {
     dots: false,
@@ -68,7 +71,7 @@ const FullscreenSlider = () => {
     afterChange: (current) => setActiveSlide(current),
   };
 
-  const wrapTextByWords = (text, wordsPerLine = isMobile ? 5 : 7) => {
+  const wrapTextByWords = (text, wordsPerLine = 9) => {
     const words = text.split(" ");
     const lines = [];
     for (let i = 0; i < words.length; i += wordsPerLine) {
@@ -77,23 +80,48 @@ const FullscreenSlider = () => {
     return lines;
   };
 
+  // Ustawienia wysokości slidera
+ const getSliderHeight = () => {
+  if (windowWidth < 768) return "h-[70vh]"; // mobile
+  if (windowWidth > 1024 && windowWidth < 1280) return "h-[70vh]"; // zwykłe tablety/laptopy
+  return "h-screen"; // duże ekrany
+};
+
+  // Ustawienia wielkości tekstu
+  const getTitleSize = () => {
+    if (isSmall) return "text-3xl";
+    if (isMobile) return "text-5xl";
+    if (isTablet) return "text-6xl";
+    return "text-8xl";
+  };
+
+  const getDescSize = () => {
+    if (isSmall) return "text-sm";
+    if (isMobile) return "text-xl";
+    if (isTablet) return "text-2xl";
+    return "text-3xl";
+  };
+
+  const getButtonSize = () => {
+    if (isSmall) return "text-sm px-4 py-2";
+    if (isMobile) return "text-lg px-8 py-3";
+    if (isTablet) return "text-xl px-10 py-4";
+    return "text-2xl px-12 py-5";
+  };
+
   return (
-    <div className="fullscreen-slider relative w-full">
+    <div className="fullscreen-slider relative w-full overflow-hidden">
       <Slider ref={sliderRef} {...settings}>
         {slides.map((slide, index) => (
           <div
             key={index}
-            className={`relative w-full flex flex-col ${
-              isMobile ? "h-[70vh]" : "h-screen"
-            }`}
+            className={`relative w-full flex flex-col ${getSliderHeight()} overflow-hidden`}
           >
             {/* Zdjęcie */}
             <img
               src={slide.image}
               alt={slide.title}
-              className={`w-full object-cover ${
-                isMobile ? "h-[70vh]" : "h-screen"
-              }`}
+              className="w-full h-full object-cover"
             />
 
             {/* Linie wskaźników */}
@@ -101,7 +129,7 @@ const FullscreenSlider = () => {
               className={`absolute z-10 flex ${
                 isMobile
                   ? "bottom-6 left-1/2 transform -translate-x-1/2 space-x-4 flex-row"
-                  : "top-2/3 right-6 transform -translate-y-1/2 flex-col space-y-4"
+                  : "top-1/2 right-6 transform -translate-y-1/2 flex-col space-y-4"
               }`}
             >
               {slides.map((_, i) => (
@@ -122,29 +150,26 @@ const FullscreenSlider = () => {
             </div>
 
             {/* Teksty i przycisk */}
-            <div
-              className={`absolute inset-0 flex flex-col  items-center text-center text-white px-6 ${
-                isMobile ? "justify-center pb-0" : "justify-end pb-32"
-              }`}
-            >
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-6">
               {activeSlide === index && (
                 <>
-                  {/* Tytuł */}
-                  <h2 className="text-4xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-4 opacity-0 translate-y-6 animate-fadeInText">
+                  <h2
+                    className={`font-bold mb-6 opacity-0 translate-y-6 animate-fadeInText drop-shadow-lg ${getTitleSize()}`}
+                  >
                     {slide.title}
                   </h2>
-
-                  {/* Opis */}
-                  <p className=" sm:text-base md:text-xl lg:text-2xl mb-6 text-white opacity-0 translate-y-6 animate-fadeInText delay-100">
-                    {wrapTextByWords(slide.description).map((line, idx) => (
+                  <p
+                    className={`mb-8 text-white opacity-0 translate-y-6 animate-fadeInText delay-100 drop-shadow-md ${getDescSize()}`}
+                  >
+                    {wrapTextByWords(slide.description, 7).map((line, idx) => (
                       <span key={idx} className="block">
                         {line}
                       </span>
                     ))}
                   </p>
-
-                  {/* Przycisk */}
-                  <button className="relative overflow-hidden bg-[#00A84F] px-5 sm:px-7 md:px-9 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg font-semibold opacity-0 translate-y-6 animate-fadeInText delay-200 group">
+                  <button
+                    className={`relative overflow-hidden bg-[#00A84F] text-white font-semibold opacity-0 translate-y-6 animate-fadeInText delay-200 group rounded-2xl shadow-lg ${getButtonSize()}`}
+                  >
                     <span className="relative z-10">{slide.button}</span>
                     <span className="absolute inset-0 bg-gray-600 scale-0 origin-center transition-transform duration-300 ease-out group-hover:scale-100"></span>
                   </button>
