@@ -6,7 +6,8 @@ import SwiperSlider from './components/Slider'
 import VisionSection from './components/VisionSection'
 import FeaturesSection from './components/FuturesSection'
 import Applications from './components/Aplications'
-
+import SecondFeaturesSection from './components/SecondFutureSection'
+import WorkingTogether from './components/WorkingTogether'
 
 
 function App() {
@@ -17,7 +18,9 @@ function App() {
       <VisionSection/>
       <FeaturesSection/>
       <Applications/>
-    
+      <SecondFeaturesSection/>
+      <WorkingTogether/>
+
     </div>
   );
 }

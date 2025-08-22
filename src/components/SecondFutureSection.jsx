@@ -1,27 +1,27 @@
-export default function FeaturesSection() {
+export default function SecondFeaturesSection() {
   const features = [
     {
-      icon: "🌳",
-      title: "Low Carbon",
+      icon: "✅",
+      title: "Operations",
       description:
         "Develop facility and project budget which includes resource allocation, financial cost and carbon management. Assign carbon loading to any operational, maintenance or logistics activity to measure and optimise Scope 1 Greenhouse Gas emissions.",
     },
     {
-      icon: "🏠",
-      title: "Integrated System",
+      icon: "🔧",
+      title: "Maintenance",
       description:
         "Common enterprise platform for facility staff, consultants and contractors to ensure that safety, operational and maintenance data is available in the right format and at the right time to enable quick evidence based operational decisions.",
     },
     {
-      icon: "💰",
-      title: "Low Cost",
+      icon: "⚙️",
+      title: "Engineering",
       description:
         "Operational excellence to ensure safe and reliable production or operation through transparent inspection and test records maintenance data. Review maintenance plan business drivers and failure modes against real time maintenance execution data and challenge appropriate resource allocation.",
     },
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-4 md:px-8 mt-32 mb-32">
+    <section className="max-w-7xl mx-auto px-4 md:px-8 mt-32 mb-50">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {features.map((feature, index) => (
           <div
