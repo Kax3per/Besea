@@ -5,10 +5,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Slider.css";
 
-import besea1 from "../assets/images/img1.jpg";
-import besea2 from "../assets/images/img2.jpg";
-import besea3 from "../assets/images/img3.jpg";
-import besea4 from "../assets/images/img4.jpg";
+import besea1 from "../assets/images/images.01.jpg";
+import besea2 from "../assets/images/images.02.jpg";
+import besea3 from "../assets/images/images.03.jpg";
+import besea4 from "../assets/images/images.04.jpg";
 
 const slides = [
   {
@@ -92,14 +92,14 @@ const FullscreenSlider = () => {
     if (isSmall) return "text-3xl";
     if (isMobile) return "text-5xl";
     if (isTablet) return "text-6xl";
-    return "text-8xl";
+    return "text-7xl";
   };
 
   const getDescSize = () => {
     if (isSmall) return "text-sm";
     if (isMobile) return "text-xl";
-    if (isTablet) return "text-2xl";
-    return "text-3xl";
+    if (isTablet) return "text-xl";
+    return "text-2xl";
   };
 
   const getButtonSize = () => {
@@ -138,7 +138,7 @@ const FullscreenSlider = () => {
                   onClick={() => sliderRef.current.slickGoTo(i)}
                   className={`relative h-1 ${
                     isMobile ? "w-12" : "w-8"
-                  } rounded-full cursor-pointer bg-white/50 overflow-hidden group`}
+                  } rounded-full cursor-pointer bg-white overflow-hidden group`}
                 >
                   <div
                     className={`absolute top-0 left-0 h-full rounded-full bg-[#00A84F] ${
@@ -168,7 +168,7 @@ const FullscreenSlider = () => {
                     ))}
                   </p>
                   <button
-                    className={`relative overflow-hidden bg-[#00A84F] text-white font-semibold opacity-0 translate-y-6 animate-fadeInText delay-200 group rounded-2xl shadow-lg ${getButtonSize()}`}
+                    className={`relative overflow-hidden bg-[#00A84F] text-white font-semibold opacity-0 translate-y-6 animate-fadeInText delay-200 group  shadow-lg ${getButtonSize()}`}
                   >
                     <span className="relative z-10">{slide.button}</span>
                     <span className="absolute inset-0 bg-gray-600 scale-0 origin-center transition-transform duration-300 ease-out group-hover:scale-100"></span>
