@@ -77,3 +77,19 @@ body {
 #particles{
   z-index: -1;
 }
+
+@keyframes pan {
+  0% {
+    transform: scale(1.05) translateX(0);
+  }
+  50% {
+    transform: scale(1.05) translateX(-15px);
+  }
+  100% {
+    transform: scale(1.05) translateX(0);
+  }
+}
+
+.animate-pan {
+  animation: pan 12s ease-in-out infinite;
+}
