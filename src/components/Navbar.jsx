@@ -1,23 +1,17 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronDown } from "lucide-react";
-
 import logo from "../assets/images/besea1.png";
 
-export default function Navbar() {
-  const [active, setActive] = useState("Home");
+export default function Navbar({ active, setActive }) {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const [pagesMobileOpen, setPagesMobileOpen] = useState(false);
   const [pagesOpen, setPagesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const links = ["Home", "About Us", "Besea", "News", "Pages"];
+  const links = ["Home", "About Us", "News", "Besea", "Pages"];
   const leftLinks = ["Services", "Privacy", "About", "FAQ", "News", "Contact Us"];
   const rightLinks = ["Features", "Besea", "Development", "Prices"];
-
-  useEffect(() => {
-    setActive("Home");
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 0);
@@ -27,27 +21,19 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) setHamburgerOpen(false); // zmienione na 1024px
+      if (window.innerWidth >= 1024) setHamburgerOpen(false);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
-    if (hamburgerOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    document.body.style.overflow = hamburgerOpen ? "hidden" : "";
+    return () => (document.body.style.overflow = "");
   }, [hamburgerOpen]);
 
   useEffect(() => {
-    if (!hamburgerOpen) {
-      setPagesMobileOpen(false);
-    }
+    if (!hamburgerOpen) setPagesMobileOpen(false);
   }, [hamburgerOpen]);
 
   return (
@@ -58,7 +44,7 @@ export default function Navbar() {
     >
       {/* Logo i hamburger */}
       <div className="flex items-center gap-4">
-        <div className="lg:hidden"> {/* wcześniej md:hidden */}
+        <div className="lg:hidden">
           <motion.button
             onClick={() => setHamburgerOpen(!hamburgerOpen)}
             className="relative w-6 h-6 lg:w-8 lg:h-8 flex items-center justify-center"
@@ -73,9 +59,9 @@ export default function Navbar() {
                   transition={{ duration: 0.3 }}
                   className="flex flex-col justify-between w-5 h-4"
                 >
-                  <span className="h-0.5 w-full bg-black " />
-                  <span className="h-0.5 w-full bg-black " />
-                  <span className="h-0.5 w-full bg-black " />
+                  <span className="h-0.5 w-full bg-black" />
+                  <span className="h-0.5 w-full bg-black" />
+                  <span className="h-0.5 w-full bg-black" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -96,7 +82,7 @@ export default function Navbar() {
       </div>
 
       {/* Nawigacja desktop */}
-      <nav className="hidden lg:flex ml-24"> {/* wcześniej md:flex */}
+      <nav className="hidden lg:flex ml-24">
         <ul className="flex space-x-12 text-lg font-medium text-gray-600 mr-20">
           {links.map((link) => (
             <li
@@ -131,26 +117,34 @@ export default function Navbar() {
           >
             <div className="max-w-6xl mx-auto grid grid-cols-2 gap-12 px-12 relative">
               <div className="absolute top-0 bottom-0 left-1/2 w-px bg-gray-300"></div>
+              {/* Lewa kolumna */}
               <div className="pr-12">
                 <h4 className="text-2xl mb-6 text-gray-600">Facility Management</h4>
                 <div className="grid grid-cols-2 gap-y-3 gap-x-8">
                   {leftLinks.map((item, i) => (
-                    <span key={i} className="relative cursor-pointer px-4 py-2 text-gray-600 transition-all duration-300 hover:translate-x-2 group">
-                      <span className="absolute left-0 top-1/2 -translate-y-1/2 h-1/2 w-1 bg-[#00A84F] 
-                        scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
+                    <span
+                      key={i}
+                      onClick={() => setActive(item)}
+                      className="relative cursor-pointer px-4 py-2 text-gray-600 transition-all duration-300 hover:translate-x-2 group"
+                    >
+                      <span className="absolute left-0 top-1 h-4/5 w-1 bg-[#00A84F] scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300"></span>
                       {item}
                     </span>
                   ))}
                 </div>
               </div>
 
+              {/* Prawa kolumna */}
               <div className="pl-12">
                 <h4 className="text-2xl mb-6 text-gray-600">Enterprise Software</h4>
                 <div className="grid grid-cols-2 gap-y-3 gap-x-8">
                   {rightLinks.map((item, i) => (
-                    <span key={i} className="relative cursor-pointer px-4 py-2 text-gray-600 transition-all duration-300 hover:translate-x-2 group">
-                      <span className="absolute left-0 top-1/2 -translate-y-1/2 h-1/2 w-1 bg-[#00A84F] 
-                        scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
+                    <span
+                      key={i}
+                      onClick={() => setActive(item)}
+                      className="relative cursor-pointer px-4 py-2 text-gray-600 transition-all duration-300 hover:translate-x-2 group"
+                    >
+                      <span className="absolute left-0 top-1 h-4/5 w-1 bg-[#00A84F] scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300"></span>
                       {item}
                     </span>
                   ))}
@@ -169,7 +163,7 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="fixed top-20 left-0 w-3/4 h-[calc(100vh-5rem)] bg-white shadow-lg z-50 p-4 md:p-6 overflow-y-scroll custom-scroll scrollbar-always"
+            className="fixed top-20 left-0 w-3/4 h-[calc(100vh-5rem)] bg-white shadow-lg z-50 p-4 md:p-6 overflow-y-scroll"
           >
             <ul className="flex flex-col space-y-4 md:space-y-6 text-gray-600 mt-12">
               {links.map((link) => (
@@ -177,13 +171,8 @@ export default function Navbar() {
                   {link === "Pages" ? (
                     <>
                       <div
-                        className={`flex items-center justify-between cursor-pointer px-3 py-3 md:px-4 md:py-4 text-base md:text-lg transition-colors
-                          ${active === link ? "bg-[#00A84F] text-white" : "text-gray-600"}
-                          hover:bg-[#00A84F] hover:text-white`}
-                        onClick={() => {
-                          setActive("Pages");
-                          setPagesMobileOpen(!pagesMobileOpen);
-                        }}
+                        className={`flex items-center justify-between cursor-pointer px-3 py-3 md:px-4 md:py-4 text-base md:text-lg transition-colors hover:bg-[#00A84F] hover:text-white`}
+                        onClick={() => setPagesMobileOpen(!pagesMobileOpen)}
                       >
                         <span>{link}</span>
                         <ChevronDown
@@ -242,13 +231,10 @@ export default function Navbar() {
                     </>
                   ) : (
                     <span
-                      onClick={() => {
-                        setActive(link);
-                        setHamburgerOpen(false);
-                      }}
-                      className={`block cursor-pointer px-3 py-3 md:px-4 md:py-4 text-base md:text-lg transition-colors
-                        ${active === link ? "bg-[#00A84F] text-white" : "text-gray-600"}
-                        hover:bg-[#00A84F] hover:text-white`}
+                      onClick={() => setActive(link) & setHamburgerOpen(false)}
+                      className={`block cursor-pointer px-3 py-3 md:px-4 md:py-4 text-base md:text-lg transition-colors ${
+                        active === link ? "bg-[#00A84F] text-white" : "text-gray-600"
+                      } hover:bg-[#00A84F] hover:text-white`}
                     >
                       {link}
                     </span>
